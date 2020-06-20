@@ -1,0 +1,30 @@
+{
+    "key": "game-importer",
+    "name": "Game Importer",
+    "description": "Imports your games from external game clients",
+    "baseUrl": "{{localBaseUrl}}",
+    "authentication": {
+        "type": "jwt"
+    },
+    "lifecycle": {
+        "installed": "/installed"
+    },
+    "scopes": [
+        "READ"
+    ],
+    "modules": {
+        "generalPages": [
+            {
+                "key": "hello-world-page-jira",
+                "location": "system.top.navigation.bar",
+                "name": {
+                    "value": "Hello World"
+                },
+                "url": "/hello-world",
+                "conditions": [{
+                    "condition": "user_is_logged_in"
+                }]
+            }
+        ]
+    }
+}
