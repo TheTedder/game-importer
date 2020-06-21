@@ -17,4 +17,10 @@ export default function routes(app, addon) {
     });
 
     // Add additional route handlers here...
+
+    app.get('/board-settings', addon.authenticate(), (req, res) => {
+        res.render('board-settings', {
+            projectId: req.query['projectId'],
+        });
+    });
 }
