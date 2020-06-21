@@ -1,3 +1,17 @@
+const jsonHeaders = {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+}
+
+const apiPath = "/rest/api/3"
+
+const DEFAULT_IDS = {
+    steam: ""
+}
+//const issuekey = "game-issue"
+
+//TODO: make these configurable
+
 export default function routes(app, addon) {
     // Redirect root path to /atlassian-connect.json,
     // which will be served by atlassian-connect-express.
@@ -19,8 +33,28 @@ export default function routes(app, addon) {
     // Add additional route handlers here...
 
     app.get('/board-settings', addon.authenticate(), (req, res) => {
-        res.render('board-settings', {
-            projectId: req.query['projectId'],
-        });
+        const httpClient = addon.httpClient(req);
+
+        httpClient.get({
+            "headers": jsonHeaders,
+            "url": apiPath + `/project/${req.query['projectId']}/properties/ids`
+        },
+        (err, response, body) => {
+            if (err) {
+                res.send(`Error: ${response.statusCode}: ${err}`)
+            } else {
+                if (body.key && body.key === "ids") {
+                    // We received valid data.
+                    res.render("board-settings", {
+                        id: {...body.values}
+                    })
+                } else {
+                    // We did not receive valid data. Use empty data.
+                    res.render("board-settings", {
+                        ids: DEFAULT_IDS
+                    })
+                }
+            }
+        })
     });
 }

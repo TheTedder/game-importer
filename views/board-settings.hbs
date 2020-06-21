@@ -2,7 +2,7 @@
 <header class="aui-page-header">
   <div class="aui-page-header-inner">
     <div class="aui-page-header-main intro-header">
-      <h1>Game Providers</h1>
+      <h1>Game Importer Settings</h1>
     </div>
   </div>
 </header>
@@ -11,15 +11,22 @@
   <div class="aui-page-panel-inner">
     <section class="aui-page-panel-item">
       <div class="aui-group">
+        <h2>
+          Game Providers
+        </h2>
         <div class="aui-item">
-          <p>
-            The project id is {{projectId}}.
-          </p>
-          <p>
-            <a class="aui-button aui-button-primary" target="_parent">
-              This is a button.
-            </a>
-          </p>
+          <h3>
+            Steam
+          </h3>
+          <form>
+            <label for="steam-io">
+              Account ID:
+            </label>
+            <input type="text" name="steam-id">
+              {{ids.steam}}
+            </input>
+            <input type="submit" value="Update" class="aui-button aui-button-primary" />
+          </form>
         </div>
       </div>
     </section>
