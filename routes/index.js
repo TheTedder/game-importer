@@ -43,11 +43,10 @@ export default function routes(app, addon) {
             if (err) {
                 res.send(`Error: ${response.statusCode}: ${err}`)
             } else {
-                if (body.key && body.key === "ids") {
+                const property = JSON.parse(body);
+                if (property.key && (property.key === "ids")) {
                     // We received valid data.
-                    res.render("board-settings", {
-                        id: {...body.values}
-                    })
+                    res.render("board-settings", property.value);
                 } else {
                     // We did not receive valid data. Use empty data.
                     res.render("board-settings", {

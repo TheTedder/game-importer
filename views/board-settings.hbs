@@ -10,25 +10,23 @@
 <div class="aui-page-panel main-panel">
   <div class="aui-page-panel-inner">
     <section class="aui-page-panel-item">
+      <h2>
+        Game Providers
+      </h2>
       <div class="aui-group">
-        <h2>
-          Game Providers
-        </h2>
         <div class="aui-item">
           <h3>
             Steam
           </h3>
-          <form>
-            <label for="steam-io">
+          <form id="steam-update-form">
+            <label for="steam-id">
               Account ID:
             </label>
-            <input type="text" name="steam-id">
-              {{ids.steam}}
-            </input>
-            <input type="submit" value="Update" class="aui-button aui-button-primary" />
+            <input type="text" id="steam-id-field" name="steam-id" value="{{ids.steam}}" />
+            <input id="steam-update-button" class="aui-button aui-button-primary" type="submit" value="Update" />
           </form>
         </div>
       </div>
     </section>
   </div>
-</div>1
+</div>
