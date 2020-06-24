@@ -2,15 +2,15 @@ function getFieldProperty(target, id) {
     return target.getElementsByTagName('input')[id].value;
 }
 
-function setFieldProperty(target, id, value) {
+function setFieldValue(target, id, value) {
     target.getElementsByTagName('input')[id].value = value;
 }
 
-function onSubmit(ids, projectId, fieldId, fieldName) {
+function onSubmit(ids, projectId, providerId, fieldName) {
     return ((event) => {
         event.preventDefault();
 
-        ids[fieldId] = getFieldProperty(event.currentTarget, fieldName);
+        ids[providerId] = getFieldProperty(event.currentTarget, fieldName);
         
         console.log('sending:');
         console.log(ids);
@@ -35,6 +35,12 @@ function onSubmit(ids, projectId, fieldId, fieldName) {
     });
 }
 
+function listenForSubmit(formId, ids, projectId, providerId, fieldId) {
+    const form = document.forms[formId];
+    setFieldValue(form, fieldId, ids[providerId]);
+    form.addEventListener('submit', onSubmit(ids, projectId, providerId, fieldId));
+}
+
 // Get the project ID.
 AP.context.getContext((response) => {
     const projectId = response.jira.project.id;
@@ -46,11 +52,8 @@ AP.context.getContext((response) => {
         console.log(data);
         let ids = JSON.parse(data.body).value;
 
-        const steamForm = document.forms['steam-update-form'];
-        setFieldProperty(steamForm, 'steam-id-field', ids.steam);
-        steamForm.addEventListener('submit', onSubmit(ids, projectId, 'steam', 'steam-id-field'), {
-            once: true
-        });
+        listenForSubmit('steam-update-form', ids, projectId, 'steam', 'steam-id-field');
+        
     })
     .catch( (err) => {
         console.log("Something went wrong:");
