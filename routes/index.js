@@ -33,27 +33,7 @@ export default function routes(app, addon) {
     // Add additional route handlers here...
 
     app.get('/board-settings', addon.authenticate(), (req, res) => {
-        const httpClient = addon.httpClient(req);
 
-        httpClient.get({
-            "headers": jsonHeaders,
-            "url": apiPath + `/project/${req.query['projectId']}/properties/ids`
-        },
-        (err, response, body) => {
-            if (err) {
-                res.send(`Error: ${response.statusCode}: ${err}`)
-            } else {
-                const property = JSON.parse(body);
-                if (property.key && (property.key === "ids")) {
-                    // We received valid data.
-                    res.render("board-settings", property.value);
-                } else {
-                    // We did not receive valid data. Use empty data.
-                    res.render("board-settings", {
-                        ids: DEFAULT_IDS
-                    })
-                }
-            }
-        })
+        res.render('board-settings');
     });
 }

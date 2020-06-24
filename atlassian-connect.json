@@ -30,7 +30,7 @@
         "jiraProjectAdminTabPanels": [
             {
                 "location": "projectgroup1",
-                "url": "/board-settings?projectId={project.id}",
+                "url": "/board-settings",
                 "name": {
                     "value": "Game Importer"
                 },
