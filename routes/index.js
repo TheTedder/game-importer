@@ -1,3 +1,17 @@
+const jsonHeaders = {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+}
+
+const apiPath = "/rest/api/3"
+
+const DEFAULT_IDS = {
+    steam: ""
+}
+//const issuekey = "game-issue"
+
+//TODO: make these configurable
+
 export default function routes(app, addon) {
     // Redirect root path to /atlassian-connect.json,
     // which will be served by atlassian-connect-express.
@@ -17,4 +31,9 @@ export default function routes(app, addon) {
     });
 
     // Add additional route handlers here...
+
+    app.get('/board-settings', addon.authenticate(), (req, res) => {
+
+        res.render('board-settings');
+    });
 }

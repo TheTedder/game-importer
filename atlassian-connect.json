@@ -26,6 +26,16 @@
                     "condition": "user_is_logged_in"
                 }]
             }
+        ],
+        "jiraProjectAdminTabPanels": [
+            {
+                "location": "projectgroup1",
+                "url": "/board-settings",
+                "name": {
+                    "value": "Game Importer"
+                },
+                "key": "admin-panel"
+            }
         ]
     }
 }
