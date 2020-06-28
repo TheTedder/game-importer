@@ -44,10 +44,6 @@ function listenForSubmit(formId, ids, projectId, provider, fieldId) {
     form.addEventListener('submit', onSubmit(ids, projectId, provider, fieldId));
 }
 
-function render(id, content) {
-    document.getElementById(id).innerHTML = content;
-}
-
 // Get the project ID.
 AP.context.getContext((response) => {
     const projectId = response.jira.project.id;
@@ -76,7 +72,7 @@ AP.context.getContext((response) => {
             // Display login button
             render("gog",
                 `<a>
-                    <button type="button" class="aui-button aui-button-primary">Login <i class="fas fa-external-link-alt"></i></button>
+                    <button type="button" class="aui-button aui-button-primary">Login <i class="fas fa-sm fa-external-link-alt"></i></button>
                 </a>`
             );
         }
