@@ -35,10 +35,17 @@ function onSubmit(ids, projectId, providerId, fieldName) {
     });
 }
 
-function listenForSubmit(formId, ids, projectId, providerId, fieldId) {
+function listenForSubmit(formId, ids, projectId, provider, fieldId) {
     const form = document.forms[formId];
-    setFieldValue(form, fieldId, ids[providerId]);
-    form.addEventListener('submit', onSubmit(ids, projectId, providerId, fieldId));
+    if (ids[provider])
+    {
+        setFieldValue(form, fieldId, ids[provider]);
+    }
+    form.addEventListener('submit', onSubmit(ids, projectId, provider, fieldId));
+}
+
+function render(id, content) {
+    document.getElementById(id).innerHTML = content;
 }
 
 // Get the project ID.
@@ -52,8 +59,27 @@ AP.context.getContext((response) => {
         console.log(data);
         let ids = JSON.parse(data.body).value;
 
+        // Setup the Steam form.
         listenForSubmit('steam-update-form', ids, projectId, 'steam', 'steam-id-field');
         
+        // Setup GOG
+
+        // If we have an id
+        if (ids.gog) {
+            // Display logout button
+            render("gog",
+                `<a>
+                    <button type="button" class="aui-button aui-button-primary">Logout</button>
+                </a>`
+            );
+        } else {
+            // Display login button
+            render("gog",
+                `<a>
+                    <button type="button" class="aui-button aui-button-primary">Login <i class="fas fa-external-link-alt"></i></button>
+                </a>`
+            );
+        }
     })
     .catch( (err) => {
         console.log("Something went wrong:");
